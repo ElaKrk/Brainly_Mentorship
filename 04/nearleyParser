@@ -1,0 +1,7 @@
+MAIN -> GROUP:*
+_ -> [\s]:*
+GROUP -> SELECTOR _ "{" _ PARAM:* _ "}" _
+SELECTOR -> [a-z.\s>*:]:+
+PARAM -> NAME ":" _ VALUE [;]:* _
+NAME -> [a-z\-]:+
+VALUE -> [0-9a-z\(\)]:+
