@@ -33,7 +33,7 @@ function setCookieAfterLogIn() {
 function logIn(event){
   valueOfLogin = loginText.value;
   valueOfPassword = passwordText.value;
-  console.log("here",valueOfLogin === "test" && valueOfPassword === "test123");
+  //console.log("here",valueOfLogin === "test" && valueOfPassword === "test123");
   if (valueOfLogin === "test" && valueOfPassword === "test123") {
     setCookieAfterLogIn();
     pageAfterLogged();
@@ -65,13 +65,14 @@ function ifEnter(event) {
   }
 };
 function checkIfLogged() {
-  if (getCookie(`name:test`)) {
+  if (getCookie(`name:${valueOfLogin}`)) { //OR worse: getCookie('name:test')
     pageAfterLogged();
 
   } else {
     logOut();
   }
 }
+
 
 button.addEventListener('click', logIn);
 outButton.addEventListener('click', logOut);
