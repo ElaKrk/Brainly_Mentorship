@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+}
+
+
+#chat {
+    width: 80%;
+    height: 500px;
+    margin: auto;
+}
+#text {
+    width: 60%;
+}
+
+#allmessages {
+    padding: 5px;
+    width: 80%;
+    height: 200px;
+    background-color: #343434;
+    color: white;
+}
+label {
+    display: block;
+}
+textarea {
+    width: 80%;
+}
+#sendmessage {
+    height: 100%;
+    grid-area: sendmes;
+}
+
+#send {
+    display: block;
+}

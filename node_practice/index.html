@@ -1,0 +1,31 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>Chat</title>
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id="chat">
+        <div id="allmessages">
+
+        </div>
+        <form id="form" action="/messages" method="POST">
+            <label for="nick">
+                Nick:
+            </label>
+            <textarea name="nick" id="nick" rows=1></textarea>
+            <label for="message">
+                Message:
+            </label>
+            <textarea name="message" id="message" rows=8></textarea>
+            <button type="submit" id="send">Send</button>
+        </form>
+        
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
