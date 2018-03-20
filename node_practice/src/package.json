@@ -8,7 +8,8 @@
     "express": "^4.16.3",
     "express-path": "^0.3.8",
     "redis": "^2.8.0",
-    "redis-server": "^1.2.0"
+    "redis-server": "^1.2.0",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {},
   "scripts": {

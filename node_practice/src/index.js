@@ -1,9 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const {storeMessagesInRedis, fetchValueFromRedis} = require("./data/redis");
-
 const app = express();
+
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+const {storeMessagesInRedis, fetchValueFromRedis} = require("./data/redis");
 
 // redisClient.del('messages', function(err, response) {
 //     if (response == 1) {
@@ -12,6 +15,13 @@ const app = express();
 //      console.log("Cannot delete")
 //     }
 //  })
+
+io.on('connection', function(socket){
+    socket.on('message', data => {
+        storeMessagesInRedis(data);
+        io.emit('message/new', data)
+    })
+})
 
 app.use(bodyParser.urlencoded({
     extended : true,
@@ -24,17 +34,11 @@ app.use(express.static(
 );
 
 
-app.post('/messages', (req, res) => {
-    const body = req.body;
-    storeMessagesInRedis(body);
-    res.json(body);
-});
-
 app.get('/allmessages', async (req, res) => {
     const messages = await fetchValueFromRedis();
     res.json(messages);
 })
 
-app.listen(3000, () => {
+server.listen(3000, () => {
     console.log('Serwer gotowy!');
 });

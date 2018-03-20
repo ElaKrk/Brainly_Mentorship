@@ -14,7 +14,7 @@ function fetchValueFromRedis(){
             if (err) {
                 return reject(err)
             }
-            resolve(response.map(JSON.parse))
+            resolve((response.reverse()).map(JSON.parse))
         })
     })
 }
