@@ -10,9 +10,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const message = document.getElementById("message");
 
     function format(data) {
-        const { nickValue, messageValue } = data;
-        console.log("nickValue:", nickValue, messageValue);
-        return `${nickValue} - ${messageValue} \n`;
+        const { nickValue, messageValue, time } = data;
+
+        const formattedTime = new Date(time);
+        const shortTime = `${formattedTime.getHours()}:${formattedTime.getMinutes()}:${formattedTime.getSeconds()} ${formattedTime.getFullYear()}/${(formattedTime.getMonth() + 1)}/${formattedTime.getDate()}`;
+        console.log(shortTime);
+        console.log(nickValue, messageValue, shortTime);
+        return `${nickValue} - ${messageValue} [${shortTime}]\n`;
     }
 
 
@@ -20,43 +24,47 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return fetch('/allmessages')
             .then(data => data.json())
     }
-    
-
-window.addEventListener('load', async () => {
-    const jsonMessages = await fetchMessagesFromRedis()
-
-    const fragment = document.createDocumentFragment();
-    jsonMessages.forEach(message => {
-        const divEl = document.createElement("div");
-        divEl.textContent = format(message)
-        fragment.appendChild(divEl);
-    })
-    
-    allmessages.appendChild(fragment);
-})
 
 
-form.addEventListener('submit', e => {
-    e.preventDefault();
-    const nickValue = nick.value;
-    const messageValue = message.value;
+    window.addEventListener('load', async () => {
+        const jsonMessages = await fetchMessagesFromRedis()
 
-    if (messageValue) {
-        fetch('/messages', {
-            method: "POST",
-            body: JSON.stringify({
-                nickValue,
-                messageValue
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        const fragment = document.createDocumentFragment();
+        jsonMessages.forEach(message => {
+            const divEl = document.createElement("div");
+            divEl.textContent = format(message)
+            fragment.appendChild(divEl);
         })
-            .then(r => r.json())
-            .then(data => {
-                allmessages.innerText += format(data);
+
+        allmessages.appendChild(fragment);
+    })
+
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const nickValue = nick.value;
+        const messageValue = message.value;
+        const time = Date.now();
+        if (messageValue) {
+            fetch('/messages', {
+                method: "POST",
+                body: JSON.stringify({
+                    nickValue,
+                    messageValue,
+                    time
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             })
-    }
-})
+                .then(r => r.json())
+                .then(data => {
+                    allmessages.innerText += format(data);
+                });
+                nick.value = "";
+                message.value = "";
+
+        }
+    })
 })
 
