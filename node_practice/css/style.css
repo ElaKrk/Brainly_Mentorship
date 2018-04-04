@@ -34,3 +34,7 @@ textarea {
 #send {
     display: block;
 }
+
+label {
+    display: block;
+}

@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    max-width: 940px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.wrapper > div {
+    border: 2px solid rgb(233, 171, 88);
+    border-radius: 5px;
+    background-color: rgba(233, 171, 88, .5);
+    padding: 1em;
+    color: #d9480f;
+}
+
+.wrapper {
+    display: grid;
+    grid-gap: 10px;
+}
+
+.one {
+    grid-area: itemA;
+}
+
+.two {
+    grid-area: itemB;
+}
+
+.three {
+    grid-area: itemC;
+}
+
+.four {
+    grid-area: itemD;
+}
+.five {
+    grid-area: itemE;
+}
+.six {
+    grid-area: itemF;
+}
+
+
+.wone {
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: auto;
+    grid-template-areas: "itemD itemA itemF" "itemE itemB itemC";
+}
+.wtwo {
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: auto;
+    grid-template-areas: "first first second" "third fourth second";
+}
+.itemA {
+    grid-area: first;
+}
+.itemB {
+    grid-area: second;
+}
+.itemC {
+    grid-area: third;
+}
+.itemD {
+    grid-area: fourth;
+}
