@@ -1,0 +1,26 @@
+query feed($subjectIds: [Int], $before: ID, $first: Int) {
+    feed(subjectIds: $subjectIds, before: $before, first: $first) {
+        edges{
+        node {
+            ... on Question {
+            id
+            content
+            subject {
+                id
+                name
+                databaseId
+            }
+            author {
+                rank {
+                name
+                }
+            }
+            }
+        }
+        }
+        pageInfo {
+        endCursor
+        hasNextPage
+        }
+    }
+}
